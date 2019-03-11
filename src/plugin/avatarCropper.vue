@@ -275,6 +275,7 @@ export default {
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
 }
 
 .panel {
@@ -332,8 +333,9 @@ export default {
 }
 
 #select {
-  margin-left: calc(45vw - 43px);
-  margin-top: 40vw;
+  position: absolute;
+  left: calc(50vw - 43px);
+  top: calc(60vw - 17px);
 }
 
 #edit {
@@ -389,8 +391,8 @@ export default {
   }
 
   #select {
-    margin-left: 182px;
-    margin-top: 182px;
+    left: 207px;
+    top: 250px;
   }
 
   #edit {

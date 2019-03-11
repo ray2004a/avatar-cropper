@@ -4,9 +4,13 @@
 
 [demo link](https://zmj97.github.io/avatar-cropper)
 
+web、移动端适配
+
 **ok事件返回选择的头像数据(dataurl)**
 
 **ok event return selected avatar's data(dataurl)**
+
+![demo gif](./demo.gif)
 
 ## How to Use
 
