@@ -2,7 +2,7 @@
 
 > 使用Vue实现的头像裁剪工具插件
 
-[demo link](https://zmj97.github.io/avatar-cropper/demo/index.html)
+[demo link](https://zmj97.github.io/avatar-cropper)
 
 **ok事件返回选择的头像数据(dataurl)**
 
