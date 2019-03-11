@@ -36,9 +36,9 @@ Vue.use(avatarCropper)
 
 ```js
 // 修改webpack
-// build使用
-entry: './src/main.js',
 // dev 使用
+entry: './src/main.js',
+// build 使用
 entry: './src/plugin/index.js',
 ```
 
