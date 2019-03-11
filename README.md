@@ -34,6 +34,15 @@ Vue.use(avatarCropper)
 
 ## Build Setup
 
+```js
+// 修改webpack
+// build使用
+entry: './src/main.js',
+// dev 使用
+entry: './src/plugin/index.js',
+```
+
+
 ``` bash
 # install dependencies
 npm install

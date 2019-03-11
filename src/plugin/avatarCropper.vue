@@ -6,7 +6,7 @@
       <!-- 相关按钮 -->
       <div class="buttons">
         <button class="button" @click="close">取消</button>
-        <button v-if="showRechoose" class="button" @click="value = false">重新选择</button>
+        <button v-if="showRechoose" class="button" @click="selectImg">重新选择</button>
         <button class="button ok" @click="ok">确定</button>
       </div>
 
@@ -348,7 +348,7 @@ export default {
 
 #cropper {
   display: inline-block;
-  position: relative;
+  position: absolute;
   top: 100px;
   left: 100px;
   width: 100px;
