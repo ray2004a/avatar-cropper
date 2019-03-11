@@ -1,6 +1,7 @@
 <template>
   <!-- container ==> 半透明背景 -->
-  <div v-show="value" id="container">
+  <!-- 鼠标在整个container中松开或离开container时停止拖动 -->
+  <div v-show="value" id="container" @mouseup="mouseup" @mouseleave="mouseup">
     <!-- panel ==> 弹出的面板 -->
     <div class="panel">
       <!-- 相关按钮 -->
@@ -17,7 +18,7 @@
         <input id="inputFile" type="file" @change="changeImg" style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg">
 
         <!-- 编辑面板、背景接近黑色 -->
-        <div id="edit" @mouseup="mouseup">
+        <div id="edit">
           <!-- canvas用来显示用户选择的图片 -->
           <canvas id="pic" :width="canvasWidth" :height="canvasHeight"></canvas>
           <!-- 浅白色蒙版 -->
@@ -275,6 +276,8 @@ export default {
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.3);
+  // 用户不可选
+  user-select: none;
   z-index: 9999;
 }
 
