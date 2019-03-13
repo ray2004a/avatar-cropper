@@ -10,7 +10,9 @@ web、移动端适配
 
 **ok event returns selected avatar's data(dataurl)**
 
-![demo gif](./demo.gif)
+![demo-pc.gif](./demo-pc.gif)
+
+![demo-phone.gif](./demo-phone.gif)
 
 ## How to Use
 

@@ -1,7 +1,7 @@
 <template>
   <!-- container ==> 半透明背景 -->
   <!-- 鼠标在整个container中松开或离开container时停止拖动 -->
-  <div v-show="value" id="container" @mouseup="mouseup" @mouseleave="mouseup">
+  <div v-show="value" id="container" @mouseup="mouseup" @mouseleave="mouseup" @touchend="mouseup">
     <!-- panel ==> 弹出的面板 -->
     <div class="panel">
       <!-- 相关按钮 -->
@@ -22,11 +22,23 @@
           <!-- canvas用来显示用户选择的图片 -->
           <canvas id="pic" :width="canvasWidth" :height="canvasHeight"></canvas>
           <!-- 浅白色蒙版 -->
-          <div id="mask" style="position: absolute; overflow: hidden" @mousemove="resizeCropper">
+          <div id="mask"
+           style="position: absolute; overflow: hidden"
+           @mousemove="resizeCropper"
+           @touchmove="resizeCropper"
+          >
             <!-- cropper ==> 选择框，圆形透明镂空 -->
-            <div id="cropper" @mousedown="mousedownCropper" @mousemove="moveCropper">
+            <div id="cropper"
+             @mousedown="mousedownCropper"
+             @mousemove="moveCropper"
+             @touchstart="mousedownCropper"
+             @touchmove="moveCropper"
+            >
               <!-- dot ==> 用于改变大小 -->
-              <div id="dot" @mousedown="mousedownDot"></div>
+              <div id="dot"
+               @mousedown="mousedownDot"
+               @touchstart="mousedownDot"
+              ></div>
             </div>
           </div>
         </div>
@@ -74,11 +86,32 @@ export default {
       // cropper内
       mouseIsDownCropper: false,
       // dot处
-      mouseIsDownDot: false,
+      mouseIsDownDot: false
+    }
+  },
+
+  watch: {
+    value () {
+      if (this.value && document.body.clientWidth < 768) {
+        // 移动端开启此插件时禁止拖动和滚轮事件
+        document.addEventListener('touchmove', this.avoidMove, {passive: false})
+        document.onmousewheel = this.avoidMove
+      } else {
+        // 此插件关闭时enable拖动和滚轮事件
+        document.removeEventListener('touchmove', this.avoidMove, {passive: false})
+        document.onmousewheel = null
+      }
     }
   },
 
   methods: {
+    // 用于移动端适配，禁止拖动
+    avoidMove (e) {
+      e.preventDefault && e.preventDefault()
+      e.stopPropagation && e.stopPropagation()
+      return false
+    },
+
     // 用于移动端适配， 设备宽度变化时调节画布宽高
     resizeCanvas () {
       if (document.body.clientWidth < 768) {
@@ -183,6 +216,8 @@ export default {
         const cropperLen = Number(window.getComputedStyle(cropper).getPropertyValue('width').slice(0, -2))
         const cropperTop = Number(window.getComputedStyle(cropper).getPropertyValue('top').slice(0, -2))
         const cropperLeft = Number(window.getComputedStyle(cropper).getPropertyValue('left').slice(0, -2))
+        // 移动端适配
+        if (!e.clientX) e = e.touches[0]
         const offsetX = e.clientX - this.mouseDownX
         const offsetY = e.clientY - this.mouseDownY
         this.updateMouseDownPos(e)
@@ -213,6 +248,7 @@ export default {
         const cropperLen = Number(window.getComputedStyle(cropper).getPropertyValue('width').slice(0, -2))
         const cropperTop = Number(window.getComputedStyle(cropper).getPropertyValue('top').slice(0, -2))
         const cropperLeft = Number(window.getComputedStyle(cropper).getPropertyValue('left').slice(0, -2))
+        if (!e.clientX) e = e.touches[0]
         const offsetX = e.clientX - this.mouseDownX
         // const offsetY = e.clientY - this.mouseDownY
         this.updateMouseDownPos(e)
@@ -273,8 +309,8 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
-  bottom: 0;
   left: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
   // 用户不可选
   user-select: none;
@@ -283,7 +319,7 @@ export default {
 
 .panel {
   position: fixed;
-  width: 100%;
+  width: 100vw;
   height: 120vw;
   top: calc(50vh - 60vw);
   border-radius: 5px;
@@ -352,8 +388,8 @@ export default {
 #cropper {
   display: inline-block;
   position: absolute;
-  top: 100px;
-  left: 100px;
+  top: 0px;
+  left: 0px;
   width: 100px;
   height: 100px;
   border-radius: 50px;
