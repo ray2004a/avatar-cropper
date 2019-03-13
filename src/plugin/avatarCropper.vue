@@ -95,11 +95,11 @@ export default {
       if (this.value && document.body.clientWidth < 768) {
         // 移动端开启此插件时禁止拖动和滚轮事件
         document.addEventListener('touchmove', this.avoidMove, {passive: false})
-        document.onmousewheel = this.avoidMove
+        document.addEventListener('mousewheel', this.avoidMove, false)
       } else {
         // 此插件关闭时enable拖动和滚轮事件
         document.removeEventListener('touchmove', this.avoidMove, {passive: false})
-        document.onmousewheel = null
+        document.removeEventListener('mousewheel', this.avoidMove, false)
       }
     }
   },
@@ -109,7 +109,6 @@ export default {
     avoidMove (e) {
       e.preventDefault && e.preventDefault()
       e.stopPropagation && e.stopPropagation()
-      return false
     },
 
     // 用于移动端适配， 设备宽度变化时调节画布宽高
