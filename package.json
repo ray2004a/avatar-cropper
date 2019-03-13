@@ -1,7 +1,7 @@
 {
   "name": "avatar-cropper",
   "description": "使用Vue实现的头像裁剪工具",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "author": "zmj97 <295692590@qq.com>",
   "license": "MIT",
   "main": "dist/avatarCropper.js",
