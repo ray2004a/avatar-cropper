@@ -283,7 +283,8 @@ export default {
       canvas.width = canvas.height = length
       const ctx = canvas.getContext('2d')
       ctx.drawImage(this.img, x, y, length, length, 0, 0, length, length)
-      this.$emit('ok', canvas.toDataURL())
+      // 压缩
+      this.$emit('ok', canvas.toDataURL('image/jpeg', 0.5))
     },
 
     // 关闭本插件
